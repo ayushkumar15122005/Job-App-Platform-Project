@@ -1,8 +1,10 @@
 package com.ayush.JobApp.repo;
 
-import com.ayush.JobApp.Model.user;
+import com.ayush.JobApp.Model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepo extends JpaRepository<user,Integer> {
-    user findByUsername(String username);
+@Repository
+public interface UserRepo extends JpaRepository<User, Integer> {
+    User findByUsername(String username);
 }
