@@ -13,8 +13,9 @@ public class jobPostService {
     private jobRepo repo;
 
     // Logic to add a job
-    public void addJob(jobPost jobPost) {
+    public jobPost addJob(jobPost jobPost) {
         repo.save(jobPost);
+        return repo.findById(jobPost.getJobId()).orElse(new jobPost());
     }
 
     // Logic to return all jobs
@@ -33,12 +34,15 @@ public class jobPostService {
     }
 
     // Logic to update an existing job
-    public void updateJob(jobPost jobPost) {
+    public jobPost updateJob(jobPost jobPost) {
         repo.save(jobPost);
+        return repo.findById(jobPost.getJobId()).orElse(new jobPost());
     }
 
     // Logic to delete a job
-    public void deleteJob(int jobId) {
+    public jobPost deleteJob(int jobId) {
+        jobPost jobPost = repo.findById(jobId).orElse(new jobPost());
         repo.deleteById(jobId);
+        return jobPost;
     }
 }

@@ -2,6 +2,7 @@ package com.ayush.JobApp.Controller;
 
 import com.ayush.JobApp.Model.jobPost;
 import com.ayush.JobApp.repo.jobRepo;
+import com.ayush.JobApp.service.jobPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -11,20 +12,28 @@ import java.util.List;
 public class jobController {
 
     @Autowired
-    private jobRepo repo;
+    private jobPostService service;
 
     @GetMapping("/jobPosts")
     public List<jobPost> getAllJobs() {
-        return repo.findAll();
+        return service.getAllJobs();
     }
 
     @PostMapping("/addJob")
     public jobPost addJob(@RequestBody jobPost jobPost) {
-        return repo.save(jobPost);
+        return service.addJob(jobPost);
     }
 
     @GetMapping("/jobPosts/search/{keyword}")
     public List<jobPost> search(@PathVariable String keyword) {
-        return repo.findByJobProfileContainingIgnoreCase(keyword);
+        return service.search(keyword);
+    }
+    @PutMapping("/updateJob")
+    public jobPost updateJob(@RequestBody jobPost jobPost) {
+        return service.updateJob(jobPost);
+    }
+    @DeleteMapping("/deleteJob/{jobId}")
+    public jobPost deleteJob(@PathVariable int jobId) {
+        return service.deleteJob(jobId);
     }
 }
